@@ -17,7 +17,9 @@ public class CreateTargets : MonoBehaviour
     void Start()
     {
         //theta is rotation degree, radian 기준
+        // 0 <= theta <= PI , - PI/2 <= alpha <= 0 
         double theta = (Math.PI / (ballCount - 1));
+        double alpha = - Math.PI / 4;
 
         for (int i = 0; i < ballCount; i++) {
 
@@ -25,12 +27,16 @@ public class CreateTargets : MonoBehaviour
             double cosValue = Math.Cos(theta * i);
             float xValue = (float)(radius * sinValue);
             float zValue = (float)(radius * cosValue);
+            
+            float yValue = (float)(Math.Abs(radius* Math.Sin(alpha)));
+
             float yRotation = toDegree(theta * i);
+            float xRotation = toDegree(alpha);
 
             GameObject clone = Instantiate(
             flatball,
-            transform.position + new Vector3(xValue ,0, zValue),
-            Quaternion.Euler(0, yRotation, 0)
+            transform.position + new Vector3(xValue ,yValue, zValue),
+            Quaternion.Euler(xRotation, yRotation, 0)
             );
         }
     }
