@@ -19,7 +19,11 @@ public class CreateTargets : MonoBehaviour
         //theta is rotation degree, radian 기준
         // 0 <= theta <= PI , - PI/2 <= alpha <= 0 
         double theta = (Math.PI / (ballCount - 1));
-        double alpha = - Math.PI / 4;
+        double alphaRange = - Math.PI / 4;
+
+        System.Random rnd = new System.Random();
+        double alpha = rnd.NextDouble() * alphaRange;
+        
 
         for (int i = 0; i < ballCount; i++) {
 
