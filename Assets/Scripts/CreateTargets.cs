@@ -6,8 +6,14 @@ public class CreateTargets : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject flatball = null;
-    private int ballCount = 5;
-    public int radius = 3;
+    
+    public int RADIUS = 3;
+    public double CENTER_DISTANCE = 3;
+    public Material INSIDE_COLOR;
+    public Material OUTSIDE_COLOR;
+
+    private static double theta = Math.PI / 12; //theta is rotation degree, radian 기준, 15도
+    private static int ballCount = 25;
 
     private static float toDegree (double angle){
         float degree = (float)(angle * 180.0 / Math.PI) ;
@@ -16,33 +22,36 @@ public class CreateTargets : MonoBehaviour
 
     void Start()
     {
-        //theta is rotation degree, radian 기준
-        // 0 <= theta <= PI , - PI/2 <= alpha <= 0 
-        double theta = (Math.PI / (ballCount - 1));
-        double alphaRange = - Math.PI / 4;
-
-        System.Random rnd = new System.Random();
-        double alpha = rnd.NextDouble() * alphaRange;
         
+        setBall(RADIUS, CENTER_DISTANCE, INSIDE_COLOR);
+        setBall(RADIUS*2, CENTER_DISTANCE*2, OUTSIDE_COLOR);
+        
+    }
+
+    void setBall(int radius, double distance_from_center, Material ballcolor){
+        double distance = Math.Sqrt( radius * radius + distance_from_center * distance_from_center );
+        Debug.Log(distance);
+        flatball.GetComponent<MeshRenderer>().material = ballcolor;
 
         for (int i = 0; i < ballCount; i++) {
 
             double sinValue = Math.Sin(theta * i);
             double cosValue = Math.Cos(theta * i);
-            float xValue = (float)(radius * sinValue);
-            float zValue = (float)(radius * cosValue);
-            
-            float yValue = (float)(Math.Abs(radius* Math.Sin(alpha)));
+            float yValue = (float)(radius * sinValue);
+            float xValue = (float)(radius * cosValue);
 
-            float yRotation = toDegree(theta * i);
-            float xRotation = toDegree(alpha);
+            float zValue = (float)distance_from_center;
+
+            float yRotation = 0;
+            float zRotation = toDegree(theta * i);
 
             GameObject clone = Instantiate(
             flatball,
             transform.position + new Vector3(xValue ,yValue, zValue),
-            Quaternion.Euler(xRotation, yRotation, 0)
+            Quaternion.Euler(0, yRotation, zRotation)
             );
         }
+
     }
 
     // Update is called once per frame
