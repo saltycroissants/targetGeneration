@@ -7,7 +7,7 @@ public class CreateTargets : MonoBehaviour
     // Start is called before the first frame update
     public GameObject flatball = null;
     
-    public int RADIUS = 3;
+    public int RADIUS = 3; //radius of circles. NOT radius of the flatball.
     public double CENTER_DISTANCE = 3;
     public Material INSIDE_COLOR;
     public Material OUTSIDE_COLOR;
