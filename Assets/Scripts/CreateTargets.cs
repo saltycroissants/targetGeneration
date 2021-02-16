@@ -7,10 +7,11 @@ public class CreateTargets : MonoBehaviour
     // Start is called before the first frame update
     public GameObject flatball = null;
     
-    public int RADIUS = 3; //radius of circles. NOT radius of the flatball.
-    public double CENTER_DISTANCE = 3;
+    public int RADIUS = 15; //radius of circles. NOT radius of the flatball.
+    public double CENTER_DISTANCE = 10;
     public Material INSIDE_COLOR;
     public Material OUTSIDE_COLOR;
+    public GameObject button;
 
     private static double theta = Math.PI / 12; //theta is rotation degree, radian 기준, 15도
     private static int ballCount = 25;
@@ -23,9 +24,11 @@ public class CreateTargets : MonoBehaviour
     void Start()
     {
         
+    }
+
+    public void onStartClicked(){
         setBall(RADIUS, CENTER_DISTANCE, INSIDE_COLOR);
         setBall(RADIUS*2, CENTER_DISTANCE*2, OUTSIDE_COLOR);
-        
     }
 
     void setBall(int radius, double distance_from_center, Material ballcolor){
